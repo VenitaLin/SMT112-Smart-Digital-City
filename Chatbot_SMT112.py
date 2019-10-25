@@ -161,11 +161,17 @@ def calculate_sum(user_dict):
             sum += int(data) * 100 
     return sum
 
+def sendImg(update):
+    user = update.message.from_user
+    imgUrl = "https://media.giphy.com/media/UReWNqLOku35dpKIDb/giphy.gif"
+    sendPhoto(user, imgUrl, caption = NULL, disable_notification = FALSE, reply_to_message_id = NULL, reply_markup = NULL, parse_mode = NULL)
+
 def ending(update, context):
     user = update.message.from_user
     cal_sum = calculate_sum(user_choice_dict[user.first_name])
     update.message.reply_text('Thank you! Your estimated CO2 emission amount is: ' + str(cal_sum))
     logger.info("user sum %s", str(cal_sum))
+    sendImg(update)
     return ConversationHandler.END
 
 #######################################
