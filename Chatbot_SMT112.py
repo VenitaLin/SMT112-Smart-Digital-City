@@ -11,7 +11,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-LAPTOP, PHONE, LIGHT, AIRCON, FAN, BUS, CAR, MRT, ENDING = range(9)
+LAPTOP, PHONE, LIGHT, AIRCON, FAN, BUS, CAR, MRT, FLIGHT, ENDING = range(10)
 
 user_choice_dict = {}
 def start(update, context):
@@ -24,7 +24,8 @@ def start(update, context):
         "fan": 0,
         "bus": 0,
         "car": 0,
-        "mrt": 0
+        "mrt": 0,
+        "flight": 0
         
     }
     reply_keyboard = [['< 1h', '1h', '2h', '3h', '4h','5h', '6h','7h','> 7h']]
@@ -70,7 +71,7 @@ def phone(update, context):
         'OK got it!' 
     )
     update.message.reply_text(
-        'How many hours of artificial lighting did you use today?',
+        'How many hours of artificial lighting were you under today?',
         reply_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True)) 
     return LIGHT
 
@@ -88,7 +89,7 @@ def light(update, context):
     user_choice_dict[user.first_name]["light"] = user_choice_num
     logger.info("user light # %s", user_choice_num)
     update.message.reply_text(
-        "Ah... it's warm here in Singapore,how many hours of aircon were you under today?", 
+        "Ah... it's warm here in Singapore,how many hours of aircon were you in today?", 
         reply_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
     return AIRCON
 
@@ -174,12 +175,30 @@ def change_mrt(text):
 
 
 def mrt(update, context):
-    reply_keyboard = [["Now let's see your score!!"]]
+    reply_keyboard = [["1h","3h", "5h", "7h", "9h", "11h","13h", '15h','> 15h']]
     user = update.message.from_user
     logger.info("MRT of %s: %s", user.first_name, update.message.text)
     user_choice_num = change_mrt(update.message.text)
     user_choice_dict[user.first_name]["mrt"] = user_choice_num
     logger.info("user mrt # %s", user_choice_num)
+    update.message.reply_text(
+        'Great!', 
+        reply_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
+    return FLIGHT 
+
+def change_flight(text):
+    flight_list = ["1h","3h", "5h", "7h", "9h", "11h","13h", '15h','> 15h']
+    ans_num = flight_list.index(text)
+    return ((ans_num+1)*2-1)
+
+
+def flight(update, context):
+    reply_keyboard = [["Now let's see your score!!"]]
+    user = update.message.from_user
+    logger.info("Flight of %s: %s", user.first_name, update.message.text)
+    user_choice_num = change_flight(update.message.text)
+    user_choice_dict[user.first_name]["flight"] = user_choice_num
+    logger.info("user flight # %s", user_choice_num)
     update.message.reply_text(
         'Great!', 
         reply_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
@@ -189,20 +208,22 @@ def calculate_sum(user_dict):
     sum = 0
     for index, data in user_dict.items():
         if index == "laptop":
-            sum += int(data) * 60
+            sum += int(data) * 0.022415
         if index == "phone":
-            sum += int(data) * 10
+            sum += int(data) * 0.0022415
         if index == "light":
-            sum += int(data) * 100
+            sum += int(data) * 0.00454
         if index == "aircon":
-            sum += int(data) * 200
+            sum += int(data) * 0.1425594
         if index == "fan":
-            sum += int(data) * 100 
+            sum += int(data) * 0.026898 
         if index == "bus":
-            sum += int(data) * 30
+            sum += int(data) * 1 
         if index == "car":
             sum += int(data) * 50
         if index == "mrt":
+            sum += int(data) * 40
+        if index == "flight":
             sum += int(data) * 40
     return sum
 
