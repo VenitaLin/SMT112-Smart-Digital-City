@@ -117,7 +117,7 @@ def change_fan(text):
 
 
 def fan(update, context):
-    reply_keyboard = [["0.5h", "1h", "1.5h", "2h", "2.5h","3h", '3.5h','4h','> 4h']]
+    reply_keyboard = [["0h","0.5h", "1h", "1.5h", "2h", "2.5h","3h", '3.5h','> 3.5h']]
     user = update.message.from_user
     logger.info("Fan of %s: %s", user.first_name, update.message.text)
     user_choice_num = change_fan(update.message.text)
@@ -132,13 +132,13 @@ def fan(update, context):
     return BUS
 
 def change_bus(text):
-    bus_list = ["0.5h", "1h", "1.5h", "2h", "2.5h","3h", '3.5h','4h','> 4h']
+    bus_list = ["0h","0.5h", "1h", "1.5h", "2h", "2.5h","3h", '3.5h','> 3.5h']
     ans_num = bus_list.index(text)
-    return ((ans_num+1)*0.5)
+    return (ans_num*0.5)
 
 
 def bus(update, context):
-    reply_keyboard = [["0.5h", "1h", "1.5h", "2h", "2.5h","3h", '3.5h','4h','> 4h']]
+    reply_keyboard = [["0h","0.5h", "1h", "1.5h", "2h", "2.5h","3h", '3.5h','> 3.5h']]
     user = update.message.from_user
     logger.info("Bus of %s: %s", user.first_name, update.message.text)
     user_choice_num = change_bus(update.message.text)
@@ -150,13 +150,13 @@ def bus(update, context):
     return CAR 
 
 def change_car(text):
-    car_list = ["0.5h", "1h", "1.5h", "2h", "2.5h","3h", '3.5h','4h','> 4h']
+    car_list = ["0h","0.5h", "1h", "1.5h", "2h", "2.5h","3h", '3.5h','> 3.5h']
     ans_num = car_list.index(text)
-    return ((ans_num+1)*0.5)
+    return (ans_num*0.5)
 
 
 def car(update, context):
-    reply_keyboard = [["0.5h", "1h", "1.5h", "2h", "2.5h","3h", '3.5h','4h','> 4h']]
+    reply_keyboard = [["0h","0.5h", "1h", "1.5h", "2h", "2.5h","3h", '3.5h','> 3.5h']]
     user = update.message.from_user
     logger.info("Car of %s: %s", user.first_name, update.message.text)
     user_choice_num = change_car(update.message.text)
@@ -168,9 +168,9 @@ def car(update, context):
     return MRT 
 
 def change_mrt(text):
-    mrt_list = ["0.5h", "1h", "1.5h", "2h", "2.5h","3h", '3.5h','4h','> 4h']
+    mrt_list = ["0h","0.5h", "1h", "1.5h", "2h", "2.5h","3h", '3.5h','> 3.5h']
     ans_num = mrt_list.index(text)
-    return ((ans_num+1)*0.5)
+    return (ans_num*0.5)
 
 
 def mrt(update, context):
@@ -244,11 +244,11 @@ def main():
 
             FAN: [MessageHandler(Filters.regex('^(< 1h|1h|2h|3h|4h|5h|6h|7h|> 7h)$'), fan)],
 
-            BUS: [MessageHandler(Filters.regex('^(0.5h|1h|1.5h|2h|2.5h|3h|3.5h|4h|> 4h)$'), bus)],
+            BUS: [MessageHandler(Filters.regex('^(0h|0.5h|1h|1.5h|2h|2.5h|3h|>3.5h)$'), bus)],
 
-            CAR: [MessageHandler(Filters.regex('^(0.5h|1h|1.5h|2h|2.5h|3h|3.5h|4h|> 4h)$'), car)],
+            CAR: [MessageHandler(Filters.regex('^(0h|0.5h|1h|1.5h|2h|2.5h|3h|>3.5h)$'), car)],
 
-            MRT: [MessageHandler(Filters.regex('^(0.5h|1h|1.5h|2h|2.5h|3h|3.5h|4h|> 4h)$'), mrt)],
+            MRT: [MessageHandler(Filters.regex('^(0h|0.5h|1h|1.5h|2h|2.5h|3h|>3.5h)$'), mrt)],
 
             ENDING: [MessageHandler(Filters.regex("^(Now let's see your score!!)$"), ending)]
         },
