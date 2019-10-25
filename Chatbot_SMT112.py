@@ -236,6 +236,10 @@ def ending(update, context):
     user = update.message.from_user
     cal_sum = calculate_sum(user_choice_dict[user.first_name])
     update.message.reply_text('Thank you! Your estimated CO2 emission amount is: ' + str(cal_sum))
+    if calculate_sum <=100:
+        bot.send_photo(chat_id=chat_id, photo='https://i.pinimg.com/originals/a0/6e/2a/a06e2a8709fb67e967103b500689d6db.jpg')
+    else:
+        bot.send_photo(chat_id=chat_id, photo='https://static.boredpanda.com/blog/wp-content/uploads/2015/09/Instagrams-most-famous-cat-Nala16__605.jpg')
     logger.info("user sum %s", str(cal_sum))
     sendImg(update)
     return ConversationHandler.END
