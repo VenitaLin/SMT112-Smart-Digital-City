@@ -11,7 +11,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-LAPTOP, PHONE, LIGHT, AIRCON, FAN, ENDING = range(6)
+LAPTOP, PHONE, LIGHT, AIRCON, FAN, BUS, CAR, MRT, ENDING = range(9)
 
 user_choice_dict = {}
 def start(update, context):
@@ -21,7 +21,10 @@ def start(update, context):
         "phone" : 0,
         "light" : 0,
         "aircon": 0,
-        "fan": 0
+        "fan": 0,
+        "bus": 0,
+        "car": 0,
+        "mrt": 0
         
     }
     reply_keyboard = [['< 1h', '1h', '2h', '3h', '4h','5h', '6h','7h','> 7h']]
@@ -30,7 +33,7 @@ def start(update, context):
     update.message.reply_text(
         "I will be starting my calculations with your ELECTRONIC DEVICES...")
     update.message.reply_text(
-        'So tell me! how often did you charge your laptop today?',
+        'So tell me! how long did you charge your laptop today?',
         reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
     return LAPTOP
 
@@ -114,7 +117,7 @@ def change_fan(text):
 
 
 def fan(update, context):
-    reply_keyboard = [["< 1h", "1h", "2h", "3h", "4h","5h", '6h','7h','> 7h']]
+    reply_keyboard = [["0.5h", "1h", "1.5h", "2h", "2.5h","3h", '3.5h','4h','> 4h']]
     user = update.message.from_user
     logger.info("Fan of %s: %s", user.first_name, update.message.text)
     user_choice_num = change_fan(update.message.text)
@@ -126,25 +129,61 @@ def fan(update, context):
     update.message.reply_text(
         'How long were you on the bus today!', 
         reply_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
+    return BUS
+
+def change_bus(text):
+    bus_list = ["0.5h", "1h", "1.5h", "2h", "2.5h","3h", '3.5h','4h','> 4h']
+    ans_num = bus_list.index(text)
+    return ((ans_num+1)*0.5)
+
+
+def bus(update, context):
+    reply_keyboard = [["0.5h", "1h", "1.5h", "2h", "2.5h","3h", '3.5h','4h','> 4h']]
+    user = update.message.from_user
+    logger.info("Bus of %s: %s", user.first_name, update.message.text)
+    user_choice_num = change_bus(update.message.text)
+    user_choice_dict[user.first_name]["bus"] = user_choice_num
+    logger.info("user bus # %s", user_choice_num)
+    update.message.reply_text(
+        'OK! Now tell me how long did u stay on a car today?', 
+        reply_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
+    return CAR 
+
+def change_car(text):
+    car_list = ["0.5h", "1h", "1.5h", "2h", "2.5h","3h", '3.5h','4h','> 4h']
+    ans_num = car_list.index(text)
+    return ((ans_num+1)*0.5)
+
+
+def car(update, context):
+    reply_keyboard = [["0.5h", "1h", "1.5h", "2h", "2.5h","3h", '3.5h','4h','> 4h']]
+    user = update.message.from_user
+    logger.info("Car of %s: %s", user.first_name, update.message.text)
+    user_choice_num = change_car(update.message.text)
+    user_choice_dict[user.first_name]["car"] = user_choice_num
+    logger.info("user car # %s", user_choice_num)
+    update.message.reply_text(
+        'How about MRT? How long did you ride on MRT?', 
+        reply_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
+    return MRT 
+
+def change_mrt(text):
+    mrt_list = ["0.5h", "1h", "1.5h", "2h", "2.5h","3h", '3.5h','4h','> 4h']
+    ans_num = mrt_list.index(text)
+    return ((ans_num+1)*0.5)
+
+
+def mrt(update, context):
+    reply_keyboard = [["Now let's see your score!!"]]
+    user = update.message.from_user
+    logger.info("MRT of %s: %s", user.first_name, update.message.text)
+    user_choice_num = change_mrt(update.message.text)
+    user_choice_dict[user.first_name]["mrt"] = user_choice_num
+    logger.info("user mrt # %s", user_choice_num)
+    update.message.reply_text(
+        'Great!', 
+        reply_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
     return ENDING 
-
-# def change_bus(text):
-#     fan_list = ["< 1h", "1h", "2h", "3h", "4h","5h", '6h','7h','> 7h']
-#     ans_num = bus_list.index(text)
-#     return (ans_num)
-
-
-# def bus(update, context):
-#     reply_keyboard = [["Now let's see your score!!"]]
-#     user = update.message.from_user
-#     logger.info("Fan of %s: %s", user.first_name, update.message.text)
-#     user_choice_num = change_fan(update.message.text)
-#     user_choice_dict[user.first_name]["fan"] = user_choice_num
-#     logger.info("user fan # %s", user_choice_num)
-#     update.message.reply_text(
-#         'Great!', 
-#         reply_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
-#     return ENDING 
 
 def calculate_sum(user_dict):
     sum = 0
@@ -159,6 +198,12 @@ def calculate_sum(user_dict):
             sum += int(data) * 200
         if index == "fan":
             sum += int(data) * 100 
+        if index == "bus":
+            sum += int(data) * 30
+        if index == "car":
+            sum += int(data) * 50
+        if index == "mrt":
+            sum += int(data) * 40
     return sum
 
 def sendImg(update):
@@ -204,6 +249,12 @@ def main():
             AIRCON: [MessageHandler(Filters.regex('^(< 1h|1h|2h|3h|4h|5h|6h|7h|> 7h)$'), aircon)],
 
             FAN: [MessageHandler(Filters.regex('^(< 1h|1h|2h|3h|4h|5h|6h|7h|> 7h)$'), fan)],
+
+            BUS: [MessageHandler(Filters.regex('^(0.5h|1h|1.5h|2h|2.5h|3h|3.5h|4h|> 4h)$'), bus)],
+
+            CAR: [MessageHandler(Filters.regex('^(0.5h|1h|1.5h|2h|2.5h|3h|3.5h|4h|> 4h)$'), car)],
+
+            MRT: [MessageHandler(Filters.regex('^(0.5h|1h|1.5h|2h|2.5h|3h|3.5h|4h|> 4h)$'), mrt)],
 
             ENDING: [MessageHandler(Filters.regex("^(Now let's see your score!!)$"), ending)]
         },
