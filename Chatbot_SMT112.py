@@ -240,7 +240,7 @@ def ending(update, context):
         bot.send_photo(chat_id=chat_id, photo='https://i.pinimg.com/originals/a0/6e/2a/a06e2a8709fb67e967103b500689d6db.jpg')
     else:
         bot.send_photo(chat_id=chat_id, photo='https://static.boredpanda.com/blog/wp-content/uploads/2015/09/Instagrams-most-famous-cat-Nala16__605.jpg')
-    logger.info("user sum %s", str(cal_sum))
+    logger.info("user sum %s", str(cal_sum,2))
     sendImg(update)
     return ConversationHandler.END
 
@@ -280,6 +280,8 @@ def main():
             CAR: [MessageHandler(Filters.regex('^(0h|0.5h|1h|1.5h|2h|2.5h|3h|>3.5h)$'), car)],
 
             MRT: [MessageHandler(Filters.regex('^(0h|0.5h|1h|1.5h|2h|2.5h|3h|>3.5h)$'), mrt)],
+
+            FLIGHT: [MessageHandler(Filters.regex('^(1h|3h|5h|7h|9h|11h|13h|15h|> 15h)$'), flight)],
 
             ENDING: [MessageHandler(Filters.regex("^(Now let's see your score!!)$"), ending)]
         },
