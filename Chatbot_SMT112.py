@@ -227,19 +227,25 @@ def calculate_sum(user_dict):
             sum += int(data) * 90
     return sum
 
-def sendImg(update):
+def sendImg(update,cal_sum):
     user = update.message.from_user
-    imgUrl = "https://media.giphy.com/media/UReWNqLOku35dpKIDb/giphy.gif"
-    sendPhoto(user, imgUrl, caption = NULL, disable_notification = FALSE, reply_to_message_id = NULL, reply_markup = NULL, parse_mode = NULL)
+    posList = ["https://media.giphy.com/media/UReWNqLOku35dpKIDb/giphy.gif",'https://media.giphy.com/media/iesygExkPilc0oeNZr/giphy.gif','https://media.giphy.com/media/XcMSqKXh4MDZ6Xg7TS/giphy.gif','https://media.giphy.com/media/l1KVcrdl7rJpFnY2s/giphy.gif','https://media.giphy.com/media/3o6UB7MOoxIfHet9PG/giphy.gif','https://media3.giphy.com/media/nWXvQqyGRJJtu/giphy.gif','https://cdn.dribbble.com/users/176039/screenshots/6944109/toogethr-wevoke-threetrees-01.gif','https://i.pinimg.com/originals/86/07/f3/8607f380ccf87e428cefcddd55ad4b7d.gif','https://i.pinimg.com/originals/b0/15/6f/b0156fdd707ab88d2a6ca71e758b16ab.gif','']
+    negList = ['https://media.giphy.com/media/3oFzm9D3ofutq98QIU/giphy.gif','https://media.giphy.com/media/l3vRebbaRnNFVfvnW/giphy.gif','https://media.giphy.com/media/12XaepjzBlBUOY/giphy.gif','https://media.giphy.com/media/239S4COH5KHT2/giphy.gif','https://media.giphy.com/media/UBBRU1wwOwapG/giphy.gif','https://media.giphy.com/media/2jMDwajdZGUoy1dht2/giphy.gif','https://media.giphy.com/media/ZgSEzHSQbijCmhbS6F/giphy.gif','https://media.giphy.com/media/2tOrrbWzUfa8UoH1RO/giphy.gif','https://media.giphy.com/media/jpQJQxqANC450flu4i/giphy.gif','https://media.giphy.com/media/26gsm43ayV5GS5KDu/giphy.gif','https://media.giphy.com/media/pOgEzg2a8BOBEXZA7a/giphy.gif','https://media0.giphy.com/media/8clNSa9G7PRSp59Dx3/giphy.gif','https://media0.giphy.com/media/AS8jJdsFrs8c7YcyGC/source.gif']
+    ranNum = 0
+    if(cal_sum > 100):
+        ranNum = random.randint(0,len(negList)-1)
+        imgUrl = negList[ranNum]
+    else:
+        ranNum = random.randint(0,len(posList)-1)
+        imgUrl = posList[ranNum]
+    user.send_document(imgUrl)
 
 def ending(update, context):
     user = update.message.from_user
     cal_sum = calculate_sum(user_choice_dict[user.first_name])
     update.message.reply_text('Thank you! Your estimated CO2 emission amount is: ' + str(cal_sum))
-    if calculate_sum <=100:
-        bot.send_photo(chat_id=chat_id, photo='https://i.pinimg.com/originals/a0/6e/2a/a06e2a8709fb67e967103b500689d6db.jpg')
-    else:
-        bot.send_photo(chat_id=chat_id, photo='https://static.boredpanda.com/blog/wp-content/uploads/2015/09/Instagrams-most-famous-cat-Nala16__605.jpg')
+    sendImg(update,cal_sum)
+    update.message.reply_text('You may press /start to recalculate again!')
     logger.info("user sum %s", str(cal_sum,2))
     sendImg(update)
     return ConversationHandler.END
