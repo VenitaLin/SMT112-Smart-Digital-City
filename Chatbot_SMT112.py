@@ -210,21 +210,21 @@ def calculate_sum(user_dict):
         if index == "laptop":
             sum += int(data) * 0.022415
         if index == "phone":
-            sum += int(data) * 0.0022415
+            sum += int(data) * 0.000775
         if index == "light":
-            sum += int(data) * 0.00454
+            sum += int(data) * 0.01698 
         if index == "aircon":
             sum += int(data) * 0.1425594
         if index == "fan":
-            sum += int(data) * 0.026898 
+            sum += int(data) * 0.01981 
         if index == "bus":
-            sum += int(data) * 1 
+            sum += int(data) * 0.76 
         if index == "car":
-            sum += int(data) * 50
+            sum += int(data) * 2.805
         if index == "mrt":
-            sum += int(data) * 40
+            sum += int(data) * 0.585
         if index == "flight":
-            sum += int(data) * 40
+            sum += int(data) * 90
     return sum
 
 def sendImg(update):
