@@ -1,6 +1,7 @@
 #SMT112 983159806:AAFhwLriaQxPv8KQPhyQ_kkMQmLcT0Ajp7w
 
 import logging
+from telegram import ParseMode
 from telegram import (ReplyKeyboardMarkup, ReplyKeyboardRemove)
 from telegram.ext import (Updater, CommandHandler, MessageHandler, Filters,
                           ConversationHandler)
@@ -31,7 +32,7 @@ def start(update, context):
     }
     reply_keyboard = [['< 1h', '1h', '2h', '3h', '4h','5h', '6h','7h','> 7h']]
     update.message.reply_text(
-        "Hi! I am a ChatBot created to calculate your daily CO2 emissions, let's begin!")
+        "Hi! I am a ChatBot created to calculate *your daily CO2 emissions*, let's begin!", parse_mode=ParseMode.MARKDOWN)
     update.message.reply_text(
         "I will be starting my calculations with your ELECTRONIC DEVICES...")
     update.message.reply_text(
@@ -235,16 +236,24 @@ def sendImg(update,cal_sum):
     ranNum = 0
     if(cal_sum > 5):
         ranNum = random.randint(0,len(negList)-1)
+        update.message.reply_text("Oh no, your carbon footprint for today is above average...To find out how you can reduce it, check out this link: https://www.huffpost.com/entry/7-instant-ways-to-reduce-your-carbon-footprint_b_59321992e4b00573ab57a383")
+        imgUrl = posList[ranNum]
     else:
         ranNum = random.randint(0,len(posList)-1)
-    imgUrl = negList[ranNum]
+        update.message.reply_text("Well done! Your carbon footprint today is within the average benchmark. Keep it up!")
+        imgUrl = negList[ranNum]
     user.send_document(imgUrl)
 
 def ending(update, context):
     user = update.message.from_user
+    update.message.reply_text(
+        'The average carbon footprint per day is approximately *5kg*', parse_mode=ParseMode.MARKDOWN)
     cal_sum = calculate_sum(user_choice_dict[user.first_name])
-    update.message.reply_text('Thank you! Your estimated CO2 emission amount is: ' + str(cal_sum))
+    update.message.reply_text('Thank you! Your carbon footprint today is: *' + str(round(cal_sum)) + '* kg.', parse_mode=ParseMode.MARKDOWN)
     sendImg(update,cal_sum)
+    update.message.reply_text(
+        'For more information, please visit: https://sciencing.com/the-importance-of-reducing-a-carbon-footprint-5229039.html'
+    )
     update.message.reply_text('You may press /start to recalculate again!')
     logger.info("user sum %s", str(round(cal_sum,2)))
     return ConversationHandler.END
