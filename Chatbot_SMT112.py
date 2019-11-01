@@ -242,8 +242,8 @@ def sendImg(update,cal_sum):
         ranNum = random.randint(0,len(posList)-1)
         update.message.reply_text("Well done! Your carbon footprint today is within the average benchmark. Keep it up!")
         imgUrl = posList[ranNum]
-    print(ranNum)
-    print(imgUrl)
+    # print(ranNum)
+    # print(imgUrl)
     user.send_document(imgUrl)
 
 def ending(update, context):
