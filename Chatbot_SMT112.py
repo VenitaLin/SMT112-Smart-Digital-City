@@ -237,11 +237,13 @@ def sendImg(update,cal_sum):
     if(cal_sum > 5):
         ranNum = random.randint(0,len(negList)-1)
         update.message.reply_text("Oh no, your carbon footprint for today is above average...To find out how you can reduce it, check out this link: https://www.huffpost.com/entry/7-instant-ways-to-reduce-your-carbon-footprint_b_59321992e4b00573ab57a383")
-        imgUrl = posList[ranNum]
+        imgUrl = negList[ranNum]
     else:
         ranNum = random.randint(0,len(posList)-1)
         update.message.reply_text("Well done! Your carbon footprint today is within the average benchmark. Keep it up!")
-        imgUrl = negList[ranNum]
+        imgUrl = posList[ranNum]
+    print(ranNum)
+    print(imgUrl)
     user.send_document(imgUrl)
 
 def ending(update, context):
