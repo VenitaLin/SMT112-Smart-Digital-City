@@ -232,7 +232,7 @@ def sendImg(update,cal_sum):
     posList = ["https://media.giphy.com/media/UReWNqLOku35dpKIDb/giphy.gif",'https://media.giphy.com/media/iesygExkPilc0oeNZr/giphy.gif','https://media.giphy.com/media/XcMSqKXh4MDZ6Xg7TS/giphy.gif','https://media.giphy.com/media/l1KVcrdl7rJpFnY2s/giphy.gif','https://media.giphy.com/media/3o6UB7MOoxIfHet9PG/giphy.gif','https://media3.giphy.com/media/nWXvQqyGRJJtu/giphy.gif','https://cdn.dribbble.com/users/176039/screenshots/6944109/toogethr-wevoke-threetrees-01.gif','https://i.pinimg.com/originals/86/07/f3/8607f380ccf87e428cefcddd55ad4b7d.gif','https://i.pinimg.com/originals/b0/15/6f/b0156fdd707ab88d2a6ca71e758b16ab.gif','']
     negList = ['https://media.giphy.com/media/3oFzm9D3ofutq98QIU/giphy.gif','https://media.giphy.com/media/l3vRebbaRnNFVfvnW/giphy.gif','https://media.giphy.com/media/12XaepjzBlBUOY/giphy.gif','https://media.giphy.com/media/239S4COH5KHT2/giphy.gif','https://media.giphy.com/media/UBBRU1wwOwapG/giphy.gif','https://media.giphy.com/media/2jMDwajdZGUoy1dht2/giphy.gif','https://media.giphy.com/media/ZgSEzHSQbijCmhbS6F/giphy.gif','https://media.giphy.com/media/2tOrrbWzUfa8UoH1RO/giphy.gif','https://media.giphy.com/media/jpQJQxqANC450flu4i/giphy.gif','https://media.giphy.com/media/26gsm43ayV5GS5KDu/giphy.gif','https://media.giphy.com/media/pOgEzg2a8BOBEXZA7a/giphy.gif','https://media0.giphy.com/media/8clNSa9G7PRSp59Dx3/giphy.gif','https://media0.giphy.com/media/AS8jJdsFrs8c7YcyGC/source.gif']
     ranNum = 0
-    if(cal_sum > 100):
+    if(cal_sum > 5):
         ranNum = random.randint(0,len(negList)-1)
         imgUrl = negList[ranNum]
     else:
