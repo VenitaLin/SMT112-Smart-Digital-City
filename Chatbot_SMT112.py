@@ -290,11 +290,11 @@ def main():
 
             FAN: [MessageHandler(Filters.regex('^(< 1h|1h|2h|3h|4h|5h|6h|7h|> 7h)$'), fan)],
 
-            BUS: [MessageHandler(Filters.regex('^(0h|0.5h|1h|1.5h|2h|2.5h|3h|>3.5h)$'), bus)],
+            BUS: [MessageHandler(Filters.regex('^(0h|0.5h|1h|1.5h|2h|2.5h|3h|3.5h|> 3.5h)$'), bus)],
 
-            CAR: [MessageHandler(Filters.regex('^(0h|0.5h|1h|1.5h|2h|2.5h|3h|>3.5h)$'), car)],
+            CAR: [MessageHandler(Filters.regex('^(0h|0.5h|1h|1.5h|2h|2.5h|3h|3.5h|> 3.5h)$'), car)],
 
-            MRT: [MessageHandler(Filters.regex('^(0h|0.5h|1h|1.5h|2h|2.5h|3h|>3.5h)$'), mrt)],
+            MRT: [MessageHandler(Filters.regex('^(0h|0.5h|1h|1.5h|2h|2.5h|3h|3.5h|> 3.5h)$'), mrt)],
 
             FLIGHT: [MessageHandler(Filters.regex('^(0h|2h|4h|6h|8h|10h|12h|14h|> 14h)$'), flight)],
 
