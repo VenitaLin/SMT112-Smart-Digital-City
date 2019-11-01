@@ -5,6 +5,7 @@ from telegram import (ReplyKeyboardMarkup, ReplyKeyboardRemove)
 from telegram.ext import (Updater, CommandHandler, MessageHandler, Filters,
                           ConversationHandler)
 
+import random
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
@@ -146,7 +147,7 @@ def bus(update, context):
     user_choice_dict[user.first_name]["bus"] = user_choice_num
     logger.info("user bus # %s", user_choice_num)
     update.message.reply_text(
-        'OK! Now tell me how long did u stay on a car today?', 
+        'OK! Now tell me how long did you stay on a car today?', 
         reply_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
     return CAR 
 
@@ -234,10 +235,9 @@ def sendImg(update,cal_sum):
     ranNum = 0
     if(cal_sum > 5):
         ranNum = random.randint(0,len(negList)-1)
-        imgUrl = negList[ranNum]
     else:
         ranNum = random.randint(0,len(posList)-1)
-        imgUrl = posList[ranNum]
+    imgUrl = negList[ranNum]
     user.send_document(imgUrl)
 
 def ending(update, context):
@@ -246,8 +246,7 @@ def ending(update, context):
     update.message.reply_text('Thank you! Your estimated CO2 emission amount is: ' + str(cal_sum))
     sendImg(update,cal_sum)
     update.message.reply_text('You may press /start to recalculate again!')
-    logger.info("user sum %s", str(cal_sum,2))
-    sendImg(update)
+    logger.info("user sum %s", str(round(cal_sum,2)))
     return ConversationHandler.END
 
 #######################################
@@ -265,7 +264,8 @@ def error(update, context):
 
 
 def main():
-    updater = Updater("983159806:AAFhwLriaQxPv8KQPhyQ_kkMQmLcT0Ajp7w", use_context=True)
+    # 1065787092:AAExGWnI-t3sirfBAtks_Hvb-6SeuhLBuw0
+    updater = Updater("1065787092:AAExGWnI-t3sirfBAtks_Hvb-6SeuhLBuw0", use_context=True)
     dp = updater.dispatcher
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler('start', start)],
