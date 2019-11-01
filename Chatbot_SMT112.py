@@ -182,7 +182,7 @@ def mrt(update, context):
     user_choice_dict[user.first_name]["mrt"] = user_choice_num
     logger.info("user mrt # %s", user_choice_num)
     update.message.reply_text(
-        'Great!', 
+        'Great! How many hours were you on the airplane? ', 
         reply_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
     return FLIGHT 
 
