@@ -82,7 +82,7 @@ def change_light(text):
 
 
 def light(update, context):
-    reply_keyboard = [["< 1h", "1h", "2h", "3h", "4h","5h", '6h','7h','> 7h']]
+    reply_keyboard = [["< 1h", "2h", "4h", "6h", "8h","10h", '12h','14h','> 14h']]
     user = update.message.from_user
     logger.info("Light of %s: %s", user.first_name, update.message.text)
     user_choice_num = change_light(update.message.text)
@@ -94,7 +94,7 @@ def light(update, context):
     return AIRCON
 
 def change_aircon(text):
-    aircon_list = ["< 1h", "1h", "2h", "3h", "4h","5h", '6h','7h','> 7h']
+    aircon_list = ["< 1h", "2h", "4h", "6h", "8h","10h", '12h','14h','> 14h']
     ans_num = aircon_list.index(text)
     return (ans_num)
 
@@ -175,7 +175,7 @@ def change_mrt(text):
 
 
 def mrt(update, context):
-    reply_keyboard = [["1h","3h", "5h", "7h", "9h", "11h","13h", '15h','> 15h']]
+    reply_keyboard = [["0h","2h","4h", "6h", "8h", "10h", "12h","14h","> 14h"]]
     user = update.message.from_user
     logger.info("MRT of %s: %s", user.first_name, update.message.text)
     user_choice_num = change_mrt(update.message.text)
@@ -187,9 +187,9 @@ def mrt(update, context):
     return FLIGHT 
 
 def change_flight(text):
-    flight_list = ["1h","3h", "5h", "7h", "9h", "11h","13h", '15h','> 15h']
+    flight_list = ["0h","2h","4h", "6h", "8h", "10h", "12h", "14h","> 14h"]
     ans_num = flight_list.index(text)
-    return ((ans_num+1)*2-1)
+    return (ans_num*2)
 
 
 def flight(update, context):
@@ -277,7 +277,7 @@ def main():
 
             LIGHT: [MessageHandler(Filters.regex('^(< 1h|1h|2h|3h|4h|5h|6h|7h|> 7h)$'), light)],
 
-            AIRCON: [MessageHandler(Filters.regex('^(< 1h|1h|2h|3h|4h|5h|6h|7h|> 7h)$'), aircon)],
+            AIRCON: [MessageHandler(Filters.regex('^(< 1h|2h|4h|6h|8h|10h|12h|14h|> 14h)$'), aircon)],
 
             FAN: [MessageHandler(Filters.regex('^(< 1h|1h|2h|3h|4h|5h|6h|7h|> 7h)$'), fan)],
 
@@ -287,7 +287,7 @@ def main():
 
             MRT: [MessageHandler(Filters.regex('^(0h|0.5h|1h|1.5h|2h|2.5h|3h|>3.5h)$'), mrt)],
 
-            FLIGHT: [MessageHandler(Filters.regex('^(1h|3h|5h|7h|9h|11h|13h|15h|> 15h)$'), flight)],
+            FLIGHT: [MessageHandler(Filters.regex('^(0h|2h|4h|6h|8h|10h|12h|14h|> 14h)$'), flight)],
 
             ENDING: [MessageHandler(Filters.regex("^(Now let's see your score!!)$"), ending)]
         },
