@@ -252,7 +252,7 @@ def ending(update, context):
     cal_sum = calculate_sum(user_choice_dict[user.first_name])
     update.message.reply_text(
         'Thank you! The average carbon footprint per day is approximately *5kg*. And your carbon footprint today is *' 
-        + str(round(cal_sum)) + 'kg.*'
+        + str(round(cal_sum))+'kg*.'
         , parse_mode=ParseMode.MARKDOWN
         ,reply_markup = ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True,resize_keyboard=True))
     
