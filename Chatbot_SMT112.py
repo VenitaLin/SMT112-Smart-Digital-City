@@ -238,11 +238,11 @@ def sendImg(update,cal_sum):
     ranNum = 0
     if(cal_sum > 5):
         ranNum = random.randint(0,len(negList)-1)
-        update.message.reply_text("Oh no, your carbon footprint for today is *above average*...There is room for improvement!! Here's some food for thought:" + negWebs[random.randint(0,len(negWebs)-1)], parse_mode=ParseMode.MARKDOWN)
+        update.message.reply_text("Oh no, your carbon footprint for today is *above average*...There is room for improvement!! Here's some food for thought: " + negWebs[random.randint(0,len(negWebs)-1)], parse_mode=ParseMode.MARKDOWN)
         imgUrl = negList[ranNum]
     else:
         ranNum = random.randint(0,len(posList)-1)
-        update.message.reply_text("*Well done!* Your carbon footprint today is within the average benchmark. Let's continue in our efforts to reduce our carbon emissions!! Here is some food for thought: " + posWebs[random.randint(0,len(posWebs)-1)], parse_mode=ParseMode.MARKDOWN)
+        update.message.reply_text("*Well done!* Your carbon footprint today is within the average benchmark. Let's continue in our efforts to reduce our carbon emissions!! Here's some food for thought: " + posWebs[random.randint(0,len(posWebs)-1)], parse_mode=ParseMode.MARKDOWN)
         imgUrl = posList[ranNum]
     user.send_document(imgUrl)
 
